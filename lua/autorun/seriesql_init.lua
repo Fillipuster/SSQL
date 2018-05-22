@@ -6,6 +6,7 @@ if (SERVER) then
 	include("seriesql/database.lua");
 	include("seriesql/events.lua");
 	include("seriesql/datahandler.lua");
+	include("seriesql/schedule.lua");
 
 	include("seriesql/testcommands.lua");
 end

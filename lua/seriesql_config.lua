@@ -23,6 +23,11 @@ SSQL.config.pDataBackup = false
 // Default: false
 // NOTE: This doubles the amount of work the server has to do every time data is saved.
 
+// The amount of time between automatic data saving:
+SSQL.config.autosaveInterval = 60
+// Default: 60
+// NOTE: This has not effect if continousSaving is true.
+
 /*---------------------------------------------------------------------------
 End of configuration.
 ---------------------------------------------------------------------------*/
