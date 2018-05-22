@@ -4,7 +4,8 @@ SSQL.players = SSQL.players or {};
 Utility Functions
 ---------------------------------------------------------------------------*/
 function SSQL.ErrorPrint(origin, error)
-	print("SSQL Error from [" .. origin .. "] reads:\n" .. error);
+	MsgC(Color(255, 100, 100), "SSQL Error from [", origin, "] reads:\n", Color(230, 230, 230), error);
+	//print("SSQL Error from [" .. origin .. "] reads:\n" .. error);
 end
 
 /*---------------------------------------------------------------------------
