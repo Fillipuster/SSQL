@@ -18,6 +18,11 @@ SSQL.config.continuousSaving = true
 // NOTE: true = safer, less risk of data loss, more demanding.
 // NOTE: false = riskier, higher risk of data loss, higher risk of exploits, less demanding.
 
+// Whether or not SSQL should also save data using GMod's default PData library - for redundency/backup:
+SSQL.config.pDataBackup = false
+// Default: false
+// NOTE: This doubles the amount of work the server has to do every time data is saved.
+
 /*---------------------------------------------------------------------------
 End of configuration.
 ---------------------------------------------------------------------------*/

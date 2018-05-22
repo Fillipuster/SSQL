@@ -1,3 +1,6 @@
+/*---------------------------------------------------------------------------
+Events/Hooks
+---------------------------------------------------------------------------*/
 hook.Add("PlayerInitialSpawn", "SSQL_InitialSpawn", function(ply)
 	SSQL.players[ply:SteamID64()] = SSQL.players[ply:SteamID64()] or {};
 	SSQL.LoadPlayerData(ply);

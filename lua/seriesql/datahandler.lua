@@ -9,6 +9,10 @@ function SSQL.SetPData(ply, name, data, saveNow)
 	if (SSQL.config.continuousSaving || saveNow) then
 		SSQL.SavePlayerData(ply);
 	end
+
+	if (SSQL.config.pDataBackup) then
+		ply:SetPData(name, data);
+	end
 end
 
 function SSQL.GetPData(ply, name)

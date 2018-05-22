@@ -36,7 +36,7 @@ function SSQL.CreatePlayer(ply)
 	if (!ply:IsValid() || !ply:IsPlayer()) then return; end
 
 	if (SSQL.database:status() != mysqloo.DATABASE_CONNECTED) then
-		SSQL.ErrorPrint("SSQL.LoadPlayerData", "Database connection invalid/lost. Attempting to reconnect.");
+		SSQL.ErrorPrint("SSQL.CreatePlayer", "Database connection invalid/lost. Attempting to reconnect.");
 		SSQL.Connect();
 		return;
 	end
@@ -76,7 +76,7 @@ function SSQL.SavePlayerData(ply)
 	if (!ply:IsValid() || !ply:IsPlayer()) then return; end
 
 	if (SSQL.database:status() != mysqloo.DATABASE_CONNECTED) then
-		SSQL.ErrorPrint("SSQL.LoadPlayerData", "Database connection invalid/lost. Attempting to reconnect.");
+		SSQL.ErrorPrint("SSQL.SavePlayerData", "Database connection invalid/lost. Attempting to reconnect.");
 		SSQL.Connect();
 		return;
 	end
@@ -90,4 +90,41 @@ function SSQL.SavePlayerData(ply)
 			end
 		end)
 	end
+end
+
+// FData //
+function SSQL.CreateFloat(name)
+	if (SSQL.database:status() != mysqloo.DATABASE_CONNECTED) then
+		SSQL.ErrorPrint("SSQL.CreateFloat", "Database connection invalid/lost. Attempting to reconnect.");
+		SSQL.Connect();
+		return;
+	end
+
+	SSQL.database:PrepareQuery("INSERT INTO seriesql_float (name) VALUES (?);", {name}, function(_, status, data)
+		if (!status) then
+			SSQL.ErrorPrint("SSQL.CreateFloat", data);
+		else
+			SSQL.float[name].data = SSQL.float[name].data or {};
+		end
+	end)
+end
+
+function SSQL.LoadFloatData()
+	if (SSQL.database:status() != mysqloo.DATABASE_CONNECTED) then
+		SSQL.ErrorPrint("SSQL.LoadFloatData", "Database connection invalid/lost. Attempting to reconnect.");
+		SSQL.Connect();
+		return;
+	end
+
+	SSQL.database:PrepareQuery("SELECT * FROM seriesql_float;", {}, function(_, status, data)
+		if (!status) then
+			SSQL.ErrorPrint("SSQL.LoadFloatData", data);
+		else
+			if (data[1]) then
+				SSQL.players[ply:SteamID64()].data = util.JSONToTable(data[1].data) or {};
+			else
+				SSQL.CreatePlayer(ply);
+			end
+		end
+	end)
 end
