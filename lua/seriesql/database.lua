@@ -118,13 +118,6 @@ function SSQL.SaveFloatData(name)
 	end
 end
 
-function SSQL.SaveAllFloatData()
-	for name,_ in pairs(SSQL.float) do
-		SSQL.SaveFloatData(name);
-	end
-end
-
-
 /*
 function SSQL.SaveAllFloatData()
 	if (!SSQL.CheckDatabase("SSQL.SaveAllFloatData")) then return; end

@@ -20,3 +20,16 @@ function SSQL.GetPData(ply, name)
 
 	return SSQL.players[ply:SteamID64()].data[tostring(name)];
 end
+
+// FData //
+function SSQL.SetFData(name, data, saveNow)
+	SSQL.float[name].data = data;
+	SSQL.float[name].queueSave = true;
+	if (SSQL.config.continuousSaving || saveNow) then
+		SSQL.SaveFloatData(name);
+	end
+
+	if (SSQL.config.pDataBackup) then
+		util.SetPData("ssql_floatdata", name, data);
+	end
+end
