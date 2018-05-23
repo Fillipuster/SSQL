@@ -12,3 +12,9 @@ hook.Add("PlayerDisconnected", "SSQL_PlyDisconnect", function(ply)
 	SSQL.SavePlayerData(ply);
 	SSQL.players[sid] = nil;
 end)
+
+/*
+hook.Add("Initialize", "SSQL_Initialize", function()
+	SSQL.LoadFloatData();
+end)
+*/

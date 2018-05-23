@@ -1,9 +1,9 @@
 /*---------------------------------------------------------------------------
 Data Saving Scheduling
 ---------------------------------------------------------------------------*/
-if (!SSQL.config.continuousSaving) then
+if (!SSQL.config.continuousSaving && SSQL.config.autosaveInterval > 0) then
 	timer.Create("SSQL_Autosave", SSQL.config.autosaveInterval, 0, function()
-		MsgC(Color(255, 100, 100), "SSQL autosaving...")
+		MsgC(Color(255, 100, 100), "SSQL autosaving...\n")
 		
 		for _,pl in pairs(player.GetAll()) do
 			SSQL.SavePlayerData(pl);
@@ -13,6 +13,6 @@ if (!SSQL.config.continuousSaving) then
 			SSQL.SaveFloatData(name);
 		end
 		
-		MsgC(Color(255, 100, 100), "SSQL autosave completed.")
+		MsgC(Color(255, 100, 100), "SSQL autosave completed.\n")
 	end)
 end
