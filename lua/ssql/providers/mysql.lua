@@ -15,7 +15,6 @@ function MySQL:Connect(config, callback)
     end
 
     self.db:connect()
-    -- self.db:wait()
 end
 
 function MySQL:Initialize(config, callback)
