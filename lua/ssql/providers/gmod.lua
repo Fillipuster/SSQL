@@ -53,7 +53,7 @@ function SQLite:SavePData(steamid64, name, data)
     data = sql.SQLStr(data)
 
     local q = sql.Query(string.format([[
-        REPLACE INTO ssql_player VALUES ('%s', '%s', '%s')
+        REPLACE INTO ssql_player VALUES ('%s', '%s', %s)
     ]], steamid64, name, data))
 
     if (q == false) then
@@ -70,7 +70,7 @@ function SQLite:SaveGData(name, data)
     data = sql.SQLStr(data)
 
     local q = sql.Query(string.format([[
-        REPLACE INTO ssql_global VALUES ('%s', '%s')
+        REPLACE INTO ssql_global VALUES ('%s', %s)
     ]], name, data))
 
     if (q == false) then
@@ -88,14 +88,16 @@ function SQLite:LoadPData(steamid64, callback)
         callback(true)
         self:Error(sql.LastError())
     else
-        if (q ~= nil) then
-            local tab = {}
-            for _,row in pairs(q) do
-                tab[row.name] = util.JSONToTable(row.data)
-            end
+        local tab = {}
 
-            callback(false, tab)
+        if (q ~= nil) then
+            for _,row in pairs(q) do
+                local data = util.JSONToTable(row.data)
+                tab[row.name] = #data > 1 and data or data[1]
+            end
         end
+
+        callback(false, tab)
     end
 end
 
@@ -106,14 +108,16 @@ function SQLite:LoadGData(callback)
         callback(true)
         self:Error(sql.LastError())
     else
-        if (q ~= nil) then
-            local tab = {}
-            for _,row in pairs(q) do
-                tab[row.name] = util.JSONToTable(row.data)
-            end
+        local tab = {}
 
-            callback(false, tab)
+        if (q ~= nil) then
+            for _,row in pairs(q) do
+                local data = util.JSONToTable(row.data)
+                tab[row.name] = #data > 1 and data or data[1]
+            end
         end
+
+        callback(false, tab)
     end
 end
 

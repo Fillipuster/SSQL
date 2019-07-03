@@ -5,7 +5,7 @@ function SSQL.RegisterProvider(provider, name)
         end
 
         function provider:Error(err)
-            MsgC(Color(255, 50, 50), string.format("[SSQL-%s] %s\n", name, err))
+            MsgC(Color(255, 50, 50), string.format("[SSQL-%s] %s\n%s\n", name, err, debug.traceback()))
         end
 
         SSQL.provider = provider

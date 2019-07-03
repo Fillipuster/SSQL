@@ -5,7 +5,7 @@ function SSQL.SetPData(ply, name, value)
         ply.ssql_data = ply.ssql_data or {}
         ply.ssql_data[tostring(name)] = value
         
-        SSQL.provider:SetPData(ply:SteamID64(), name, value)
+        SSQL.provider:SavePData(ply:SteamID64(), name, value)
     end
 end
 
@@ -16,7 +16,7 @@ function SSQL.SetGData(name, value)
         SSQL.globalData = SSQL.globalData or {}
         SSQL.globalData[name] = value
 
-        SSQL.provider:SetGData(name, value)
+        SSQL.provider:SaveGData(name, value)
     end
 end
 

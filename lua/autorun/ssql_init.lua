@@ -13,4 +13,6 @@ if (SERVER) then
 	include("ssql/api.lua")
 
 	hook.Run("ssql_loaded")
+
+	include("ssql/testcommands.lua")
 end

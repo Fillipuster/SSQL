@@ -82,7 +82,8 @@ function MySQL:LoadPData(steamid64, callback)
         else
             local tab = {}
             for _,row in pairs(data) do
-                tab[row.name] = util.JSONToTable(row.data)
+                local data = util.JSONToTable(row.data)
+                tab[row.name] = #data > 1 and data or data[1]
             end
 
             callback(false, tab)
@@ -99,7 +100,8 @@ function MySQL:LoadGData(callback)
         else
             local tab = {}
             for _,row in pairs(data) do
-                tab[row.name] = util.JSONToTable(row.data)
+                local data = util.JSONToTable(row.data)
+                tab[row.name] = #data > 1 and data or data[1]
             end
 
             callback(false, tab)
@@ -110,6 +112,7 @@ end
 // Based on mysqloolib by FredyH (https://github.com/FredyH/MySQLOO)
 function MySQL:query(str, args, callback)
     local query = self.db:prepare(str)
+    callback = callback or function() end
 
     local typeFunctions = {
 		["string"] = function(query, index, value) query:setString(index, value) end,
@@ -117,12 +120,14 @@ function MySQL:query(str, args, callback)
 		["boolean"] = function(query, index, value) query:setBoolean(index, value) end,
 	}
 
-    for index,arg in pairs(args) do
-        local t = type(arg)
-        if (typeFunctions[t]) then
-            typeFunctions[t](query, index, arg)
-        else
-            query:setString(index, tostring(arg))
+    if (args) then
+        for index,arg in pairs(args) do
+            local t = type(arg)
+            if (typeFunctions[t]) then
+                typeFunctions[t](query, index, arg)
+            else
+                query:setString(index, tostring(arg))
+            end
         end
     end
 
@@ -132,7 +137,7 @@ function MySQL:query(str, args, callback)
 
     function query:onError(err)
         callback(err)
-        self:Error(err)
+        MySQL:Error(err)
     end
 
     function query:onSuccess(data)

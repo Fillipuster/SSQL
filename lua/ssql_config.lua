@@ -6,7 +6,7 @@ SerieSQL Configuration
 ---------------------------------------------------------------------------*/
 
 // The backend which should provide data persistence to SerieSQL:
-SSQL.config.dataProvider = "gmod"
+SSQL.config.dataProvider = "mysql"
 
 // The configuration for the chosen provider:
 SSQL.config.providerConfig = {
