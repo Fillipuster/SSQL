@@ -14,5 +14,5 @@ if (SERVER) then
 
 	hook.Run("ssql_loaded")
 
-	include("ssql/testcommands.lua")
+	-- include("ssql/testcommands.lua") -- Include this to enable testing commands. Don't mess with this unless you know what you are doing!
 end
