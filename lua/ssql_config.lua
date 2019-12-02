@@ -10,7 +10,7 @@ SSQL.config.dataProvider = "mysql"
 
 // The configuration for the chosen provider:
 SSQL.config.providerConfig = {
-    hostname = "192.168.0.250",
+    hostname = "localhost",
     username = "gmod",
     password = "1234",
     database = "gmod",
